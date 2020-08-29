@@ -1,0 +1,107 @@
+namespace = ai_fort
+
+country_event = {
+	id = ai_fort.1
+	title = ai_fort.1.t
+	desc = ai_fort.1.d
+	picture = TRADE_GOODS_PLANTATION_GOODS_IN_WAREHOUSE_eventPicture
+
+	is_triggered_only = yes
+	
+	trigger = {
+		
+	}
+	
+	option = {
+		name = ai_fort.1.a
+		ai_chance = { factor = 100 }
+		
+	}
+	
+	immediate = {
+		every_owned_province = {
+			add_province_triggered_modifier = ai_modifier
+		}
+		
+		
+		every_owned_province = {
+            set_variable = {
+                which = capital_distance_var
+                value = -1
+            }
+        }
+        capital_scope = {
+            set_variable = {
+                which = capital_distance_var
+                value = 0
+            }
+        }
+        set_variable = {
+            which = capital_distance_var
+            value = 0
+        }
+        while = {
+            limit = {
+				NOT = {
+					all_owned_province = {
+						#needs edge case conditions
+						check_variable = {
+							which = capital_distance_var
+							value = 0
+						}
+					}
+				}
+            }
+            every_owned_province = {
+                limit = {
+                    check_variable = {
+                        which = capital_distance_var
+                        which = ROOT
+                    }
+					
+					ROOT = {
+						check_variable = {
+							which = capital_distance_var
+							which = PREV
+						}
+					}
+                }
+                every_neighbor_province = {
+                    limit = {
+                        owned_by = ROOT
+                        NOT = {
+                            check_variable = {
+                                which = capital_distance_var
+                                value = 0
+                            }
+                        }
+                    }
+                    set_variable = {
+                        which = capital_distance_var
+                        which = ROOT
+                    }
+                    change_variable = {
+                        which = capital_distance_var
+                        value = 1
+                    }
+                }
+            }
+            change_variable = {
+                which = capital_distance_var
+                value = 1
+            }
+            
+        }	
+	}
+}
+
+
+
+
+
+
+
+
+
+
+

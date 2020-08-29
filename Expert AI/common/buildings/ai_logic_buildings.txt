@@ -1,0 +1,181 @@
+# Do not change tags in here without changing every other reference to them.
+# If adding new buildings, make sure they are uniquely named.
+
+# cost = x #==> cost in $ to build (subject to other modifiers)
+# time = x #==> number of months to build.
+# modifier = m # a modifier on the province that the building gives
+# trigger = t # an and trigger that needs to be fullfilled to build and keep the building
+# one_per_country = yes/no # if yes, only one of these can exist in a country
+# manufactory = { trade_good trade_good } # list of trade goods that get a production bonus
+# onmap = yes/no # show as a sprite on the map
+
+# FROM = owner
+# ROOT = province
+
+# Building AI is now mainly hard-coded. The AI will estimate how much it gains yearly from each building,
+# convert the value to ducats, and take the building with biggest yearly return as a percentage of the build cost.
+# If lower than 1%, the AI will not consider the yearly return worth it.
+# It will also require higher yearly return if the economy in not in prime shape.
+# Forts' value also get converted to a yearly return based on terrain and strategic position, as well as available budget for fort maintenance.
+
+# AI can still be modded though; it will multiply the yearly return with the value of ai_will_do.
+# If you don't want the AI to build a building at all, make ai_will_do become 0.
+# AI will consider each building to be worth 0.01 ducats per year as a base, so making ai_will_do above cost will have them build it at some point.
+# It will still check whether it can afford a building before doing so though, but may save up to it.
+
+
+################################################
+# Tier 1, 15th Century Buildings
+################################################
+
+
+Ai_delete_fort = {
+	cost = 0
+	time = 1
+
+	one_per_country = yes
+	
+	build_trigger = {
+		AND = {
+			is_variable_equal = {
+				which = capital_distance_var
+				value =  1
+			}
+			FROM = {
+				is_at_war = no
+			}
+			capital_scope = { 
+				has_building = fort_15th
+			}
+		}
+		
+		
+	}
+	
+	potential = {
+		ai = yes
+	}
+	
+
+	on_built = {
+		ROOT = {
+			remove_building = Ai_delete_fort
+			#province_event = { 
+			#id = prices_marcin.8
+			#	days = 1
+			#}
+		}
+	}
+	
+	on_destroyed = {
+		
+	}
+	
+	modifier = {
+
+	}	
+	
+	ai_will_do = {
+		factor = 0
+	}
+}
+
+
+Ai_upgrade_fort_capital_lvl_2 = {
+	cost = 200
+	time = 1
+	
+	one_per_country = yes	
+	
+	build_trigger = {
+		AND = {
+			ROOT = {
+				is_capital = yes
+				NOT = { has_building = fort_15th } 				
+			}
+			
+			FROM = {
+				current_income_balance = 3
+				is_at_war = no
+			}
+		}
+	}
+	
+	potential = {
+		ai = yes
+	}
+	
+	on_built = {
+		ROOT = {
+			remove_building = Ai_upgrade_fort_capital_lvl_2
+
+			add_building_construction = {
+				building = fort_15th
+				speed = 1
+				cost = 0
+			}
+		}
+	}
+	
+	on_destroyed = {}
+	modifier = {}
+
+	ai_will_do = {
+		factor = 250
+		
+		modifier = {
+			factor = 2.5
+			FROM = { current_income_balance = 6 }
+		}
+		
+		modifier = {
+			factor = 2.5
+			FROM = { current_income_balance = 10 }
+		}
+		
+		modifier = {
+			factor = 2.5
+			FROM = { mil_tech = 12 }
+		}
+	}
+}
+
+Ai_bulid_fort_lvl_2 = {
+	cost = 200
+	time = 1
+
+	one_per_country = yes
+	
+	build_trigger = {
+		
+	}
+	
+	potential = {
+		ai = yes
+	}
+	
+
+	on_built = {
+		ROOT = {
+			remove_building = Ai_bulid_fort_lvl_2
+			#province_event = { 
+			#id = prices_marcin.8
+			#	days = 1
+			#}
+		}
+	}
+	
+	on_destroyed = {
+		
+	}
+	
+	modifier = {
+
+	}	
+	
+	ai_will_do = {
+		factor = 0
+	}
+}
+
+
