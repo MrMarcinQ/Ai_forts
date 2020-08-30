@@ -1,2 +1,2 @@
 ﻿l_english:
- desc_ai_modifier: "§YCapital Distance:§! [Root.capital_distance_var.GetValue]"
+ desc_ai_modifier: "§YCapital Distance:§! [Root.capital_distance_var.GetValue]\n§YTerrain Quality:§! [Root.terrain_quality_var.GetValue]\n§YI have DEV:§! [Root.I_have_dev.GetValue]"

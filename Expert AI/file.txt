@@ -1,0 +1,4 @@
+HUN = { 
+	
+	log = "[This.fort_var.GetValue]"
+}

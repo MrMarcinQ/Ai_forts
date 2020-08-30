@@ -1,0 +1,45 @@
+country_decisions = { 
+
+	mod_options = {
+		major = yes
+		potential = {
+			ai = no
+			NOT = { has_global_flag = ai_start }	
+		}
+		
+		allow = {
+			always = yes
+		}
+		
+		effect = {
+			every_province = { 
+				trigger_switch = {
+					on_trigger = has_terrain
+					farmlands = { set_variable = {  which = terrain_quality_var value = -1 } }
+					grasslands = { set_variable = {  which = terrain_quality_var value = -1 } }
+					desert = { set_variable = {  which = terrain_quality_var value = -1 } }
+					coastal_desert = { set_variable = {  which = terrain_quality_var value = -1 } }
+					coastline = { set_variable = {  which = terrain_quality_var value = -1 } }
+					drylands = { set_variable = {  which = terrain_quality_var value = -1 } }
+					savannah = { set_variable = {  which = terrain_quality_var value = -1 } }
+					steppe = { set_variable = {  which = terrain_quality_var value = -1 } }
+					forest = { set_variable = {  which = terrain_quality_var value = 0 } }
+					glacier = { set_variable = {  which = terrain_quality_var value = 0 } }
+					woods = { set_variable = {  which = terrain_quality_var value = 0 } }
+					jungle = { set_variable = {  which = terrain_quality_var value = 0 } }
+					marsh = { set_variable = {  which = terrain_quality_var value = 0 } }
+					highlands = { set_variable = {  which = terrain_quality_var value = 1 } }
+					hills = { set_variable = {  which = terrain_quality_var value = 1 } }
+					mountain = { set_variable = {  which = terrain_quality_var value = 2 } }
+				}
+			}
+			set_global_flag = ai_start
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	
+	}
+
+}

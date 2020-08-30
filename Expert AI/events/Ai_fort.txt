@@ -7,6 +7,7 @@ country_event = {
 	picture = TRADE_GOODS_PLANTATION_GOODS_IN_WAREHOUSE_eventPicture
 
 	is_triggered_only = yes
+	hidden = yes
 	
 	trigger = {
 		
@@ -19,10 +20,58 @@ country_event = {
 	}
 	
 	immediate = {
-		every_owned_province = {
-			add_province_triggered_modifier = ai_modifier
+		set_variable = {
+            which = fort_var
+            value = 1
+        }
+		export_to_variable = {
+			variable_name = Total_dev_var
+			value = total_development
+			who = ROOT
 		}
 		
+		divide_variable = {
+			which = Total_dev_var
+			value = 35
+		}
+		
+		every_owned_province = {
+			add_province_triggered_modifier = ai_modifier
+			
+			if = {
+				limit = {
+					has_building = fort_15th
+				}
+				owner = {
+					change_variable = {
+						which = fort_var
+						value = 1
+					}
+				}
+
+			}
+		}
+		
+		if = {
+			limit = { 
+				check_variable = {
+					which = Total_dev_var
+					which = fort_var
+				}		
+			}
+			capital_scope = {
+				set_variable = {
+					which = I_have_dev
+					value = 1
+				}
+			}			
+		}
+		else = {
+			set_variable = {
+				which = I_have_dev
+				value = -1
+			}
+		}
 		
 		every_owned_province = {
             set_variable = {

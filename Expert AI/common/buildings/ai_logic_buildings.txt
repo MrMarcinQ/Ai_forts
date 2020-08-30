@@ -36,18 +36,42 @@ Ai_delete_fort = {
 	one_per_country = yes
 	
 	build_trigger = {
-		AND = {
-			is_variable_equal = {
-				which = capital_distance_var
-				value =  1
+		OR = {
+			AND = {
+				ROOT = {
+					has_building = fort_15th
+					is_variable_equal = {
+						which = capital_distance_var
+						value =  1
+					}
+				}
+	
+				FROM = {
+					is_at_war = no
+					capital_scope = { 
+						has_building = fort_15th
+					}
+				}
+				
 			}
-			FROM = {
-				is_at_war = no
-			}
-			capital_scope = { 
+			
+			AND = {
+				any_neighbor_province = { 
+					has_building = fort_15th
+					owned_by = FROM
+					check_variable = {
+						which = terrain_quality_var
+						which = PREV
+					}
+				}
 				has_building = fort_15th
+				
+				
 			}
+		
 		}
+		
+		NOT = { is_capital = yes }
 		
 		
 	}
@@ -60,10 +84,12 @@ Ai_delete_fort = {
 	on_built = {
 		ROOT = {
 			remove_building = Ai_delete_fort
-			#province_event = { 
-			#id = prices_marcin.8
-			#	days = 1
-			#}
+			
+			
+			remove_building = fort_15th
+			remove_building = fort_16th
+			remove_building = fort_17th
+			remove_building = fort_18th
 		}
 	}
 	
@@ -76,7 +102,7 @@ Ai_delete_fort = {
 	}	
 	
 	ai_will_do = {
-		factor = 0
+		factor = 10000
 	}
 }
 
@@ -121,7 +147,7 @@ Ai_upgrade_fort_capital_lvl_2 = {
 	modifier = {}
 
 	ai_will_do = {
-		factor = 250
+		factor = 350
 		
 		modifier = {
 			factor = 2.5
@@ -140,14 +166,218 @@ Ai_upgrade_fort_capital_lvl_2 = {
 	}
 }
 
-Ai_bulid_fort_lvl_2 = {
+
+Ai_upgrade_fort_capital_lvl_4 = {
 	cost = 200
 	time = 1
-
-	one_per_country = yes
+	
+	one_per_country = yes	
 	
 	build_trigger = {
+		AND = {
+			ROOT = {
+				is_capital = yes
+				has_building = fort_15th  				
+			}
+			
+			FROM = {
+				current_income_balance = 5
+				is_at_war = no
+			}
+		}
+	}
+	
+	potential = {
+		ai = yes
+	}
+	
+	on_built = {
+		ROOT = {
+			remove_building = Ai_upgrade_fort_capital_lvl_4
+
+			add_building_construction = {
+				building = fort_16th
+				speed = 1
+				cost = 0
+			}
+		}
+	}
+	
+	on_destroyed = {}
+	modifier = {}
+
+	ai_will_do = {
+		factor = 350
 		
+		modifier = {
+			factor = 2.5
+			FROM = { current_income_balance = 6 }
+		}
+		
+		modifier = {
+			factor = 2.5
+			FROM = { current_income_balance = 10 }
+		}
+		
+		modifier = {
+			factor = 2.5
+			FROM = { mil_tech = 18 }
+		}
+	}
+}
+
+Ai_upgrade_fort_capital_lvl_6 = {
+	cost = 200
+	time = 1
+	
+	one_per_country = yes	
+	
+	build_trigger = {
+		AND = {
+			ROOT = {
+				is_capital = yes
+				has_building = fort_16th  				
+			}
+			
+			FROM = {
+				current_income_balance = 6
+				is_at_war = no
+			}
+		}
+	}
+	
+	potential = {
+		ai = yes
+	}
+	
+	on_built = {
+		ROOT = {
+			remove_building = Ai_upgrade_fort_capital_lvl_6
+
+			add_building_construction = {
+				building = fort_17th
+				speed = 1
+				cost = 0
+			}
+		}
+	}
+	
+	on_destroyed = {}
+	modifier = {}
+
+	ai_will_do = {
+		factor = 350
+		
+		modifier = {
+			factor = 2.5
+			FROM = { current_income_balance = 8 }
+		}
+		
+		modifier = {
+			factor = 2.5
+			FROM = { current_income_balance = 12 }
+		}
+		
+		modifier = {
+			factor = 2.5
+			FROM = { mil_tech = 20 }
+		}
+	}
+}
+
+
+Ai_upgrade_fort_capital_lvl_8 = {
+	cost = 200
+	time = 1
+	
+	one_per_country = yes	
+	
+	build_trigger = {
+		AND = {
+			ROOT = {
+				is_capital = yes
+				has_building = fort_17th  				
+			}
+			
+			FROM = {
+				current_income_balance = 8
+				is_at_war = no
+			}
+		}
+	}
+	
+	potential = {
+		ai = yes
+	}
+	
+	on_built = {
+		ROOT = {
+			remove_building = Ai_upgrade_fort_capital_lvl_8
+
+			add_building_construction = {
+				building = fort_18th
+				speed = 1
+				cost = 0
+			}
+		}
+	}
+	
+	on_destroyed = {}
+	modifier = {}
+
+	ai_will_do = {
+		factor = 350
+		
+		modifier = {
+			factor = 2.5
+			FROM = { current_income_balance = 10 }
+		}
+		
+		modifier = {
+			factor = 2.5
+			FROM = { current_income_balance = 12 }
+		}
+		
+		modifier = {
+			factor = 2.5
+			FROM = { mil_tech = 25 }
+		}
+	}
+}
+
+
+Ai_bulid_fort_lvl_2 = {
+	cost = 1
+	time = 1
+	
+	one_per_country = yes	
+	
+	build_trigger = {
+		AND = {
+			FROM = {
+				capital_scope = {
+					is_variable_equal = {
+						which = I_have_dev
+						value = 1
+					}
+				}
+			}
+			check_variable = {
+				which = capital_distance_var
+				value = 2
+			}
+			NOT = { has_building = fort_15th  }
+			any_neighbor_province = { 
+				owned_by = FROM
+				NOT = { has_influencing_fort = yes }
+			}
+			NOT = {
+				any_neighbor_province = { 
+					owned_by = FROM
+					has_influencing_fort = yes 
+				}
+			}
+		}
 	}
 	
 	potential = {
@@ -158,10 +388,10 @@ Ai_bulid_fort_lvl_2 = {
 	on_built = {
 		ROOT = {
 			remove_building = Ai_bulid_fort_lvl_2
-			#province_event = { 
-			#id = prices_marcin.8
-			#	days = 1
-			#}
+			add_building = fort_15th
+		}
+		FROM = {
+			country_event = { id = ai_fort.1 }
 		}
 	}
 	
@@ -174,8 +404,18 @@ Ai_bulid_fort_lvl_2 = {
 	}	
 	
 	ai_will_do = {
-		factor = 0
+		factor = 10000
+		
+		modifier = {
+			factor = 2
+			check_variable = {
+				which = terrain_quality_var
+				value = 1
+			}
+		}
 	}
 }
+
+
 
 

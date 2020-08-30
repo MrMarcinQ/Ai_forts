@@ -16,9 +16,11 @@ technology = { #Early Ships
 	may_fabricate_claims = yes
 	
 	Ai_upgrade_fort_capital_lvl_2 = yes
+	Ai_upgrade_fort_capital_lvl_4 = yes
+	Ai_upgrade_fort_capital_lvl_6 = yes
+	Ai_upgrade_fort_capital_lvl_8 = yes
 	Ai_delete_fort = yes
 	Ai_bulid_fort_lvl_2 = yes
-
 }
 
 technology = { #Merchants & Trade
